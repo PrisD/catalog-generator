@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page {
+            size: A4;
+            margin: 1.5cm;
+        }
+        body {
+            font-family: 'Helvetica', sans-serif;
+        }
+        .categoria-titulo {
+            text-align: center;
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            page-break-before: always;
+        }
+        .categoria-titulo:first-child {
+            page-break-before: auto;
+        }
+        .grilla {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            page-break-inside: avoid;
+        }
+        .producto {
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            background-color: #fafafa;
+        }
+        .producto img {
+            max-width: 100%;
+            height: 160px;
+            object-fit: contain;
+        }
+        .nombre {
+            font-size: 14px;
+            height: 35px;
+            margin: 10px 0 5px 0;
+            overflow: hidden;
+        }
+        .medidas {
+            font-size: 12px;
+            color: #666;
+            margin: 0;
+        }
+        .precio {
+            font-weight: bold;
+            font-size: 18px;
+            color: #27ae60;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    {% for categoria, productos in agrupado.items() %}
+        <h1 class="categoria-titulo">{{ categoria }}</h1>
+
+        <div class="grilla">
+        {% for p in productos %}
+            <div class="producto">
+                <img src="{{ p.IMAGEN }}" onerror="this.src='imagenes/placeholder.jpg'">
+                <h3 class="nombre">{{ p.PRODUCTO }}</h3>
+                <p class="medidas">{{ p.MEDIDAS }}</p>
+                <p class="precio">{{ p.PRECIO_MOSTRAR }}</p>
+            </div>
+
+            {% if loop.index % items_per_page == 0 and not loop.last %}
+                </div>
+                <div class="grilla" style="page-break-before: always;">
+            {% endif %}
+        {% endfor %}
+        </div>
+    {% endfor %}
+</body>
+</html>
