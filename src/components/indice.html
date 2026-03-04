@@ -1,0 +1,8 @@
+<div class="indice">
+    <h1 class="categoria-titulo" style="page-break-before: avoid;">Índice</h1>
+    <ul>
+        {% for cat in categorias %}
+            <li><a href="#{{ cat.id }}">→ {{ cat.nombre }}</a></li>
+        {% endfor %}
+    </ul>
+</div>

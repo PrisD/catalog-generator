@@ -1,0 +1,12 @@
+<div class="producto">
+    <div class="image-container">
+        <img src="{{ p.IMAGEN }}" onerror="this.src='imagenes/placeholder_mockup.jpg'">
+    </div>
+    <div class="detalles">
+        <h3 class="nombre">{{ p.PRODUCTO }}</h3>
+        <p class="medidas">{{ p.MEDIDAS }}</p>
+        <div class="precio-wrapper">
+            <p class="precio">{{ p.PRECIO_MOSTRAR }}</p>
+        </div>
+    </div>
+</div>

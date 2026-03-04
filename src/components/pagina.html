@@ -1,0 +1,16 @@
+<div class="pagina-categoria">
+    {% for categoria, datos in agrupado.items() %}
+        <h1 class="categoria-titulo" id="{{ datos.id }}">{{ categoria }}</h1>
+
+        <div class="grilla">
+        {% for p in datos.productos %}
+            {% include 'item.html' %}
+
+            {% if loop.index % items_per_page == 0 and not loop.last %}
+                </div>
+                <div class="grilla" style="page-break-before: always; margin-top: 30px;">
+            {% endif %}
+        {% endfor %}
+        </div>
+    {% endfor %}
+</div>
