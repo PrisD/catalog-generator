@@ -1,6 +1,25 @@
 <div class="pagina-categoria">
     {% for categoria, datos in agrupado.items() %}
-        <h1 class="categoria-titulo" id="{{ datos.id }}">{{ categoria }}</h1>
+
+        <div class="categoria-portada" id="{{ datos.id }}" style="background-image: url('imagenes/fondo_categoria.jpg');">
+            <div class="categoria-portada-overlay">
+                <h1>{{ categoria }}</h1>
+            </div>
+        </div>
+
+        <div class="header-repite">
+            <div class="header-logo-container">
+                <img src="{{ logo }}" class="header-logo">
+            </div>
+            <div class="header-categoria-nombre">
+                {{ categoria }}
+            </div>
+            <div class="header-contacto">
+                <strong>{{ instagram }}</strong><br>
+                {{ telefono }}<br>
+                {{ direccion }}
+            </div>
+        </div>
 
         <div class="grilla">
         {% for p in datos.productos %}
@@ -12,5 +31,6 @@
             {% endif %}
         {% endfor %}
         </div>
+
     {% endfor %}
 </div>

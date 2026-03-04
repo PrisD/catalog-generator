@@ -6,9 +6,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Reglas de la página normal de productos */
         @page {
             size: A4;
-            margin: 3.5cm 1cm 1.5cm 1cm; /* Redujimos 0.5cm arriba para dar más espacio */
+            margin: 3.5cm 1cm 1.5cm 1cm;
+            background-color: #e0f2f1;
             @top-center {
                 content: element(header-repite);
             }
@@ -19,41 +21,72 @@
                 color: #555;
             }
         }
+
+        /* Reglas para la portada principal */
         @page portada {
             margin: 0;
+            background-color: #fff;
             @top-center { content: none; }
             @bottom-right { content: none; }
         }
+
+        /* Reglas para la portada de cada subsección */
+        @page categoria-portada {
+            margin: 0;
+            background-color: #fff;
+            @top-center { content: none; } /* Sin encabezado en la portada */
+            @bottom-right { content: none; }
+        }
+
         @page indice {
             margin: 2cm 1cm;
             @top-center { content: none; }
         }
+
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
             color: #222;
         }
+
+        /* HEADER DINÁMICO (3 Columnas) */
         .header-repite {
             position: running(header-repite);
             width: 100%;
             height: 70px;
-            border-bottom: 2px solid #34adaa;
+            border-bottom: 2px solid #247371;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding-bottom: 10px;
             margin-top: 25px;
         }
+        .header-logo-container {
+            flex: 1;
+            text-align: left;
+        }
         .header-logo {
-            max-height: 60px;
+            max-height: 55px;
+        }
+        .header-categoria-nombre {
+            flex: 1;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: #309895;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .header-contacto {
+            flex: 1;
             text-align: right;
-            font-size: 12px;
+            font-size: 11px;
             color: #444;
-            line-height: 1.5;
+            line-height: 1.4;
         }
+
+        /* ESTILOS DE LA PORTADA PRINCIPAL */
         .portada {
             page: portada;
             height: 100vh;
@@ -72,173 +105,60 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             width: 60%;
         }
-        .portada-logo {
-            max-width: 220px;
-            margin-bottom: 15px;
-        }
-        .portada-titulo {
-            font-size: 38px;
-            color: #309895;
-            text-transform: uppercase;
-            margin: 10px 0 30px 0;
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
-        .subtitulo{
-             font-size: 16px;
-            color: #247371;
-            text-transform: uppercase;
-            margin: 10px 0 30px 0;
-            font-weight: 300;
-            letter-spacing: 2px;
-        }
-        .titulo{
-             font-size: 50px;
-            color: #247371;
-            text-transform: uppercase;
-            margin: 60px 0 30px 0;
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
-        .portada-contacto p {
-            margin: 8px 0;
-            font-size: 16px;
-            color: #333;
-            font-weight: 600;
-        }
-        .indice {
-            page: indice;
-            page-break-after: always;
-        }
-        .indice-titulo {
-            text-align: center;
-            font-size: 32px;
-            color: #34adaa;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
-        .indice ul {
-            list-style-type: none;
-            padding: 0;
-            width: 70%;
-            margin: 0 auto;
-        }
-        .indice li {
-            margin-bottom: 15px;
-            border-bottom: 1px dashed #ccc;
-            padding-bottom: 8px;
-        }
-        .indice a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 600;
-            font-size: 18px;
-        }
-        .pagina-categoria {
+        .portada-logo { max-width: 220px; margin-bottom: 15px; }
+        .portada-titulo { font-size: 38px; color: #247371; text-transform: uppercase; margin: 10px 0 30px 0; font-weight: 700; }
+        .portada-contacto p { margin: 8px 0; font-size: 16px; color: #333; font-weight: 600; }
+
+        /* ESTILOS DE LA PORTADA DE SUBSECCIÓN */
+        .categoria-portada {
+            page: categoria-portada;
+            height: 100vh;
             background-size: cover;
             background-position: center;
-            min-height: 100vh;
-        }
-        .categoria-titulo {
-            text-align: center;
-            font-size: 24px;
-            font-weight: 700;
-            margin: 0 auto 20px auto;
-            padding: 10px 30px;
-            color: #fff;
-            background-color: #34adaa;
-            border-radius: 50px;
-            width: fit-content;
             page-break-before: always;
-            box-shadow: 0 4px 10px rgba(46,125,50,0.3);
-            text-transform: uppercase;
+            page-break-after: always;
         }
-        /* Evita que el primer título rompa la primera hoja dejándola en blanco */
-        .categoria-titulo:first-child {
-            page-break-before: auto;
-        }
-        .grilla {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px; /* Reducido un poco para ganar espacio */
-            margin-bottom: 20px;
-            /* SE ELIMINÓ page-break-inside: avoid; DE AQUÍ */
-        }
-        .producto {
-            background-color: rgba(255, 255, 255, 0.98);
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 12px;
-            border: 1px solid #eaeaea;
-            page-break-inside: avoid; /* SE AGREGÓ AQUÍ. Protege a cada producto individualmente */
-        }
-        .image-container {
-            width: 100%;
-            height: 150px; /* Reducido de 180 a 150 para que entren las 3 filas en la hoja A4 */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            overflow: hidden;
-            background-color: #f9f9f9;
-        }
-        .producto img {
+        .categoria-portada-overlay {
+            background-color: rgba(0, 0, 0, 0.35); /* Filtro oscuro para que resalte el texto */
             width: 100%;
             height: 100%;
-            object-fit: cover;
-        }
-        .detalles {
-            text-align: center;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-        .nombre {
-            font-size: 13px;
-            font-weight: 700;
-            margin: 0 0 8px 0;
-            min-height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #111;
-            text-transform: uppercase;
         }
-        .medidas {
-            font-size: 12px;
-            color: #777;
-            margin: 0 0 10px 0;
-            font-weight: 600;
-        }
-        .precio-wrapper {
-            background-color: #34adaa;
-            padding: 6px 10px;
-            border-radius: 6px;
-        }
-        .precio {
-            font-weight: 700;
-            font-size: 16px;
+        .categoria-portada h1 {
             color: #ffffff;
-            margin: 0;
+            font-size: 45px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 3px solid #ffffff;
+            padding: 20px 40px;
+            background: rgb(52, 173, 170); /* Verde vivero translúcido */
+            text-align: center;
+            max-width: 80%;
         }
+
+        /* ÍNDICE */
+        .indice { page: indice; page-break-after: always; }
+        .indice-titulo { text-align: center; font-size: 32px; color: #247371; margin-bottom: 30px; text-transform: uppercase; font-weight: 700; }
+        .indice ul { list-style-type: none; padding: 0; width: 70%; margin: 0 auto; }
+        .indice li { margin-bottom: 15px; border-bottom: 1px dashed #ccc; padding-bottom: 8px; }
+        .indice a { text-decoration: none; color: #333; font-weight: 600; font-size: 18px; }
+
+        /* GRILLA Y PRODUCTOS */
+        .pagina-categoria { min-height: 100vh; }
+        .grilla { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
+        .producto { background-color: #ffffff; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); display: flex; flex-direction: column; align-items: center; padding: 12px; border: 1px solid #eaeaea; page-break-inside: avoid; }
+        .image-container { width: 100%; height: 150px; display: flex; justify-content: center; align-items: center; margin-bottom: 15px; border-radius: 8px; overflow: hidden; background-color: #f9f9f9; }
+        .producto img { width: 100%; height: 100%; object-fit: cover; }
+        .detalles { text-align: center; width: 100%; display: flex; flex-direction: column; flex-grow: 1; }
+        .nombre { font-size: 13px; font-weight: 700; margin: 0 0 8px 0; min-height: 36px; display: flex; align-items: center; justify-content: center; color: #111; text-transform: uppercase; }
+        .medidas { font-size: 12px; color: #777; margin: 0 0 10px 0; font-weight: 600; }
+        .precio-wrapper { background-color: #309895; padding: 6px 10px; border-radius: 6px; }
+        .precio { font-weight: 700; font-size: 16px; color: #ffffff; margin: 0; }
     </style>
 </head>
 <body>
-    <div class="header-repite">
-        <img src="{{ logo }}" class="header-logo">
-        <div class="header-contacto">
-            <strong>{{ instagram }}</strong><br>
-            {{ telefono }}<br>
-            {{ direccion }}
-        </div>
-    </div>
-
     {% include 'portada.html' %}
     {% include 'indice.html' %}
     {% include 'pagina.html' %}
